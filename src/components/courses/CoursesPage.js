@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
-class CoursesPage extends React.Component {
-  render() {
-    return (
-      <div>
+function CoursesPage() {
+  const [course, setCourse] = useState({ title: "" });
+
+  const handleChange = (event) => {
+    const course = { course, title: event.target.value };
+    setCourse(course);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(course.title);
+    setCourse({ ...course, title: "" });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
         <h2>Courses</h2>
-      </div>
-    );
-  }
+        <h3>Add Course</h3>
+        <input type="text" onChange={handleChange} value={course.title} />
+        <input type="submit" value="Save" />
+      </form>
+    </div>
+  );
 }
 
 export default CoursesPage;
