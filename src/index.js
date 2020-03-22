@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 
-function Index(props) {
+function Index() {
   return <div>Some text</div>;
 }
 
