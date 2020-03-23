@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -6,6 +6,12 @@ import * as courseActions from "../../redux/actions/courseActions";
 
 function CoursesPage({ ...props }) {
   const [course, setCourse] = useState({ title: "" });
+
+  useEffect(() => {
+    props.actions.loadCourses().catch((error) => {
+      alert("Loading courses failed" + error);
+    });
+  }, []);
 
   const handleChange = (event) => {
     const course = { course, title: event.target.value };
