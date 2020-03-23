@@ -4,10 +4,14 @@ import { connect } from "react-redux";
 import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 
-const ManageCoursePage = ({ ...props }) => {
+const ManageCoursePage = ({
+  courses,
+  authors,
+  loadCourses,
+  loadAuthors,
+  ...props
+}) => {
   useEffect(() => {
-    const { courses, authors, loadCourses, loadAuthors } = props;
-
     if (courses.length === 0) {
       loadCourses().catch((error) => {
         alert("Loading courses failed" + error);

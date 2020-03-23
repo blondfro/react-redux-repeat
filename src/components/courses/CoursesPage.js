@@ -6,10 +6,8 @@ import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import CoursesList from "./CoursesList";
 
-function CoursesPage({ ...props }) {
+function CoursesPage({ courses, authors, actions, ...props }) {
   useEffect(() => {
-    const { courses, authors, actions } = props;
-
     if (courses.length === 0) {
       actions.loadCourses().catch((error) => {
         alert("Loading courses failed" + error);
