@@ -12,6 +12,7 @@ const ManageCoursePage = ({
   loadCourses,
   loadAuthors,
   saveCourse,
+  history,
   ...props
 }) => {
   const [course, setCourse] = useState({ ...props.course });
@@ -22,6 +23,8 @@ const ManageCoursePage = ({
       loadCourses().catch((error) => {
         alert("Loading courses failed" + error);
       });
+    } else {
+      setCourse({ ...props.course });
     }
 
     if (authors.length === 0) {
@@ -29,7 +32,7 @@ const ManageCoursePage = ({
         alert("Loading authors failed" + error);
       });
     }
-  }, []);
+  }, [props.course]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,7 +44,9 @@ const ManageCoursePage = ({
 
   const handleSave = (event) => {
     event.preventDefault();
-    saveCourse(course);
+    saveCourse(course).then(() => {
+      history.push("/courses");
+    });
   };
 
   return (
@@ -62,11 +67,21 @@ ManageCoursePage.propTypes = {
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
+export const getCourseBySlug = (courses, slug) => {
+  return courses.find((course) => course.slug === slug) || null;
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const slug = ownProps.match.params.slug;
+  const course =
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
+      : newCourse;
   return {
-    course: newCourse,
+    course: course,
     courses: state.courses,
     authors: state.authors,
   };
