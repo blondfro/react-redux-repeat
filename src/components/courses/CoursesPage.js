@@ -24,7 +24,7 @@ function CoursesPage({ courses, authors, actions, ...props }) {
   return (
     <>
       <h2>Courses</h2>
-      <CoursesList courses={props.courses} />
+      <CoursesList courses={courses} />
     </>
   );
 }
