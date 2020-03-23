@@ -35,7 +35,7 @@ function CoursesPage({ ...props }) {
 
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  actions: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
